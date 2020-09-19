@@ -36,8 +36,8 @@ RSpec.describe 'As a merchant user' do
     end
   end
 
-  xdescribe 'When I visit /merchant/bulk_discounts' do
-    xit 'can see all of that merchants bulk discounts' do
+  describe 'When I visit /merchant/bulk_discounts' do
+    it 'can see all of that merchants bulk discounts' do
       visit '/merchant/bulk_discounts'
 
       expect(page).to have_content("My Bulk Discounts")
