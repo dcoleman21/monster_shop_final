@@ -9,9 +9,9 @@ RSpec.describe Cart do
       @ogre = @megan.items.create!(name: 'Ogre', description: "I'm an Ogre!", price: 20, image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTaLM_vbg2Rh-mZ-B4t-RSU9AmSfEEq_SN9xPP_qrA2I6Ftq_D9Qw', active: true, inventory: 5 )
       @giant = @megan.items.create!(name: 'Giant', description: "I'm a Giant!", price: 50, image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTaLM_vbg2Rh-mZ-B4t-RSU9AmSfEEq_SN9xPP_qrA2I6Ftq_D9Qw', active: true, inventory: 2 )
       @hippo = @brian.items.create!(name: 'Hippo', description: "I'm a Hippo!", price: 50, image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTaLM_vbg2Rh-mZ-B4t-RSU9AmSfEEq_SN9xPP_qrA2I6Ftq_D9Qw', active: true, inventory: 3 )
-      
-      @discount1 = BulkDiscount.create!(discount_percentage: 5, item_minimun: 6, merhcant_id: @brian.id)
-      @discount2 = BulkDiscount.create!(discount_percentage: 10, item_minimun: 12, merchant_id: @brian.id)
+
+      @discount1 = BulkDiscount.create(discount_percentage: 5, item_minimun: 6, merchant_id: @megan.id)
+      @discount2 = BulkDiscount.create(discount_percentage: 10, item_minimun: 12, merchant_id: @megan.id)
 
       @cart = Cart.new({
         @ogre.id.to_s => 1,
