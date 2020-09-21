@@ -32,7 +32,6 @@ RSpec.describe 'As a merchant user' do
       expect(page).to have_link('New Bulk Discount')
 
       click_link 'New Bulk Discount'
-
       expect(current_path).to eq('/merchant/bulk_discounts/new')
       expect(page).to have_field('Discount percentage')
       expect(page).to have_field('Item minimun')
