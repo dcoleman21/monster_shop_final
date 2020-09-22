@@ -14,4 +14,10 @@ class OrderItem < ApplicationRecord
   def fulfillable?
     item.inventory >= quantity
   end
+
+  def apply_discount(discount)
+    percentage = (discount.to_f / 100)
+    reduction = (price * percentage).round(2)
+    update(price: price - reduction, bulk_discount: discount)
+  end
 end
