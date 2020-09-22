@@ -25,6 +25,10 @@ class Merchant::BulkDiscountsController < Merchant::BaseController
   #   @discount = current_user.merchant.bulk_discounts.update(params[:id], discount_params)
   # end
 
+  # def destroy
+  #
+  # end
+
   private
 
   def bulk_discount_params
