@@ -21,13 +21,14 @@ class Merchant::BulkDiscountsController < Merchant::BaseController
     @discount = current_user.merchant.bulk_discounts.find(params[:id])
   end
 
-  # def update
-  #   @discount = current_user.merchant.bulk_discounts.update(params[:id], discount_params)
-  # end
+  def update
+    @discount = current_user.merchant.bulk_discounts.update(params[:id], discount_params)
+  end
 
-  # def destroy
-  #
-  # end
+  def destroy
+    current_user.merchant.bulk_discounts.destroy(params[:id])
+    redirect_to '/merchant/bulk_discounts'
+  end
 
   private
 
