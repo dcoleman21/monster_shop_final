@@ -31,7 +31,7 @@ class User::OrdersController < ApplicationController
   end
 
   def discount_order_item(item, order_item)
-    if cart.item_minimun_met?(item.id)
+    if cart.item_minimum_met?(item.id)
       order_item.apply_discount(cart.applied_discount(item.id))
     end
   end
