@@ -34,5 +34,22 @@ RSpec.describe 'As a merchant user' do
     expect(page).to have_content("Edit Bulk Discount")
     expect(page).to have_field("Discount percentage")
     expect(page).to have_field("Item minimun")
+
+    fill_in "Discount percentage", with: 20
+    fill_in "Item minimun", with: 15
+
+    expect(@discount1.discount_percentage).to eq(5)
+
+    click_on "Edit Bulk Discount"
+    
+    @discount1.reload
+    expect(@discount1.discount_percentage).to eq(20)
+
+    expect(current_path).to eq('/merchant/bulk_discounts')
+
+    within "#discount-#{@discount1.id}" do
+      expect(page).to have_content(20)
+      expect(page).to have_content(15)
+    end
   end
 end
