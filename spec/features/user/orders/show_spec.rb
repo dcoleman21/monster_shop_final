@@ -97,9 +97,8 @@ RSpec.describe 'Order Show Page' do
       visit item_path(@giant)
       click_button 'Add to Cart'
       visit cart_path
-      10.times do
-        within "#item-#{@giant.id}" do
-          save_and_open_page
+      within "#item-#{@giant.id}" do
+        10.times do
           click_button 'More of This!'
         end
       end
