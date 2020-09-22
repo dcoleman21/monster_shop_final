@@ -40,5 +40,11 @@ RSpec.describe OrderItem do
       expect(@order_item_1.fulfilled).to eq(true)
       expect(@ogre.inventory).to eq(3)
     end
+
+    it '.apply_discount()' do
+      @order_item_1.apply_discount(5)
+      @order_item_1.reload
+      expect(@order_item_1.price).to eq(19.24)
+    end
   end
 end
