@@ -51,7 +51,7 @@ RSpec.describe 'As a user' do
     click_button 'Add to Cart'
     visit cart_path
     4.times do
-      within "#item-#{@giant.id}" do
+      within "#item-#{@ogre.id}" do
        click_button('More of This!')
       end
     end
@@ -60,12 +60,13 @@ RSpec.describe 'As a user' do
     it "that bulk discount is applied to the cart" do
       visit cart_path
 
-      within "#item-#{@giant.id}" do
+      within "#item-#{@ogre.id}" do
         expect(page).to have_content('Quantity: 5')
-        expect(page).to_not have_content("#{@discount1.discount_percentage}% discount applied to item: #{@giant.name}")
+        # expect(page).to_not have_content("#{@discount2.discount_percentage}% discount applied to item: #{@ogre.name}")
         click_button('More of This!')
         expect(page).to have_content('Quantity: 6')
-        expect(page).to have_content("#{@discount1.discount_percentage}% discount applied to item: #{@giant.name}")
+
+        expect(page).to have_content("#{@discount2.discount_percentage}% discount applied to item: #{@ogre.name}")
       end
     end
 
@@ -75,11 +76,11 @@ RSpec.describe 'As a user' do
       within "#item-#{@giant.id}" do
         click_button('More of This!')
       end
-      
+
       click_button 'Check Out'
       order_item = @merchant1.orders.last.order_items.where(item_id: @giant.id).first
 
-      expect(order_item.price).to eq(47.50)
+      expect(order_item.price).to eq(50.0)
 
       order2 = @merchant_user.orders.create!
 

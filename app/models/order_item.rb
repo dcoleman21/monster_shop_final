@@ -15,9 +15,14 @@ class OrderItem < ApplicationRecord
     item.inventory >= quantity
   end
 
+  def bulk_discount
+    BulkDiscount.where(id: self[:bulk_discount])[0]
+  end
+
   def apply_discount(discount)
-    percentage = (discount.to_f / 100)
+    percentage = (discount[:discount_percentage].to_f / 100)
     reduction = (price * percentage).round(2)
-    update(price: price - reduction, bulk_discount: discount)
+    update(price: price - reduction, bulk_discount: discount.id)
   end
 end
+# bulk discount is the discount id else nil
