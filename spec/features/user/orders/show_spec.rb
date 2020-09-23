@@ -108,14 +108,13 @@ RSpec.describe 'Order Show Page' do
       new_order = @user.orders.last
 
       visit "/profile/orders/#{new_order.id}"
-
+      
       within "#order-item-#{new_order.order_items.last.id}" do
         expect(page).to have_link(new_order.order_items.last.item.name)
         expect(page).to have_content(new_order.order_items.last.item.description)
         expect(page).to have_content(new_order.order_items.last.quantity)
         expect(page).to have_content(new_order.order_items.last.price)
         expect(page).to have_content(new_order.order_items.last.subtotal)
-        save_and_open_page
         expect(page).to have_content("Bulk Discount: #{@discount2.discount_percentage}")
       end
     end

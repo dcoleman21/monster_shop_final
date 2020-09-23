@@ -66,7 +66,7 @@ RSpec.describe 'As a user' do
         click_button('More of This!')
         expect(page).to have_content('Quantity: 6')
 
-        expect(page).to have_content("#{@discount2.discount_percentage}% discount applied to item: #{@ogre.name}")
+        expect(page).to have_content("#{@discount1.discount_percentage}% discount applied to item: #{@ogre.name}")
       end
     end
 
