@@ -14,11 +14,12 @@ RSpec.describe 'Order Show Page' do
       @order_1 = @user.orders.create!(status: "packaged")
       @order_2 = @user.orders.create!(status: "pending")
       @discount2 = BulkDiscount.create!(discount_percentage: 10,
-                                       item_minimun: 12,
+                                       item_minimun: 6,
                                        merchant_id: @megan.id)
       @order_item_1 = @order_1.order_items.create!(item: @ogre, price: @ogre.price, quantity: 2, fulfilled: true)
       @order_item_2 = @order_2.order_items.create!(item: @giant, price: @hippo.price, quantity: 2, fulfilled: true)
       @order_item_3 = @order_2.order_items.create!(item: @ogre, price: @ogre.price, quantity: 2, fulfilled: false)
+
       allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(@user)
     end
 
@@ -90,16 +91,20 @@ RSpec.describe 'Order Show Page' do
       visit "/profile/orders/#{@order_2.id}"
 
       within "#order-item-#{@order_item_2.id}" do
+        expect(page).to have_link(@order_item_2.item.name)
+        expect(page).to have_content(@order_item_2.item.description)
         expect(page).to have_content(@order_item_2.quantity)
+        expect(page).to have_content(@order_item_2.price)
+        expect(page).to have_content(@order_item_2.subtotal)
         expect(page).to_not have_content("Bulk Discount: #{@order_item_2.bulk_discount}")
       end
 
       visit item_path(@giant)
       click_button 'Add to Cart'
       visit cart_path
-      within "#item-#{@giant.id}" do
-        10.times do
-          click_button 'More of This!'
+      5.times do
+        within "#item-#{@giant.id}" do
+          click_button('More of This!')
         end
       end
 
@@ -108,14 +113,14 @@ RSpec.describe 'Order Show Page' do
       new_order = @user.orders.last
 
       visit "/profile/orders/#{new_order.id}"
-      
+
       within "#order-item-#{new_order.order_items.last.id}" do
         expect(page).to have_link(new_order.order_items.last.item.name)
         expect(page).to have_content(new_order.order_items.last.item.description)
         expect(page).to have_content(new_order.order_items.last.quantity)
         expect(page).to have_content(new_order.order_items.last.price)
         expect(page).to have_content(new_order.order_items.last.subtotal)
-        expect(page).to have_content("Bulk Discount: #{@discount2.discount_percentage}")
+        expect(page).to have_content("Bulk Discount: #{new_order.order_items.last.bulk_discount}")
       end
     end
   end

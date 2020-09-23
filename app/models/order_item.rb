@@ -2,6 +2,12 @@ class OrderItem < ApplicationRecord
   belongs_to :order
   belongs_to :item
 
+  def apply_discount(discount)
+    percentage = (discount.to_f / 100)
+    reduction = (price * percentage).round(2)
+    update(price: price - reduction, bulk_discount: discount)
+  end
+
   def subtotal
     quantity * price
   end
@@ -14,15 +20,4 @@ class OrderItem < ApplicationRecord
   def fulfillable?
     item.inventory >= quantity
   end
-
-  def bulk_discount
-    BulkDiscount.where(id: self[:bulk_discount])[0]
-  end
-
-  def apply_discount(discount)
-    percentage = (discount[:discount_percentage].to_f / 100)
-    reduction = (price * percentage).round(2)
-    update(price: price - reduction, bulk_discount: discount.id)
-  end
 end
-# bulk discount is the discount id else nil
