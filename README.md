@@ -1,6 +1,6 @@
 # Monster Shop - Bulk Discount
 
-Adds functionality to the [Turing](turing.io) Mod2 BE [group project](https://github.com/turingschool-examples/monster_shop_2001).
+Adds functionality to the [Turing](turing.io) Mod2 BE [final project](https://github.com/turingschool-examples/monster_shop_final).
 
 Merchants can add bulk discount rates for all of their inventory. These apply automatically in the shopping cart, and adjust the order_items price upon checkout.
 
