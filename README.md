@@ -8,8 +8,8 @@ Merchants can add bulk discount rates for all of their inventory. These apply au
 
 * [Monster Shop - Bulk Discount]() Deployed on Heroku
   * Merchant user login credentials:
-    * Email: 'megan_1@example.com'
-    * Password: 'securepassword'
+    * Email: `megan_1@example.com`
+    * Password: `securepassword`
 
 
 ## Getting Started
